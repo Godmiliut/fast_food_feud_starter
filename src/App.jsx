@@ -2,6 +2,10 @@ import * as React from "react"
 // IMPORT ANY NEEDED COMPONENTS HERE
 import { createDataSet } from "./data/dataset"
 import "./App.css"
+import Header from "./components/Header/Header.jsx"
+import Instructions from "./components/Instructions/Instructions.jsx"
+import Chip from "./components/Chip/Chip.jsx"
+import { useState } from "react"
 
 // don't move this!
 export const appInfo = {
@@ -21,6 +25,10 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
+  const [currentCategory, setCategory] = React.useState();
+  const [currentRestaurant, setRestaurant] = React.useState();
+  const [currentFood, setFood] = React.useState();
+  const currentMenuItems= data;
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -28,26 +36,28 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {/* YOUR CODE HERE */}
+          {categories.map((category) => (<Chip key={category} label={category} onClick={() => {setCategory(category)}} isActive={category == currentCategory} />))}
         </div>
       </div>
 
       {/* MAIN COLUMN */}
       <div className="container">
         {/* HEADER GOES HERE */}
-
+        <Header title={appInfo.title} tagline={appInfo.tagline} description= {appInfo.description}/>
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">{/* YOUR CODE HERE */} {restaurants.map((restaurant) =>(<Chip key={restaurant} label={restaurant} onClick={() => setRestaurant(restaurant)} isActive={ restaurant == currentRestaurant} />))}</div>
         </div>
 
         {/* INSTRUCTIONS GO HERE */}
-
+        <Instructions instructions={appInfo.instructions.start}/>
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             {/* YOUR CODE HERE */}
+            {console.log({currentMenuItems})}
           </div>
 
           {/* NUTRITION FACTS */}
