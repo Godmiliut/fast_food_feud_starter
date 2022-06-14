@@ -13,6 +13,7 @@ export function Chip({ label = "", isActive = false, onClick= () => {}}) {
     <button onClick={onClick} className={buttonClassName}>
       <p className="label">{label}</p>
       <span className="close" role="button">{`X`}</span>
+      {console.log(isActive)}
     </button>
   )
 }
